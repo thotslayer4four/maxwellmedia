@@ -2291,7 +2291,7 @@ Photographer</h3></div><!--/$--><!--$--><div id="comp-kbgakxmn_r_comp-mhuw959w" 
   --bg-overlay-color:transparent;
 }
 
-/* Portfolio grid: uniform 3:2 cards — absolute fill avoids Safari height:100% chain bug */
+/* Portfolio grid: uniform 3:2 cards */
 [id^="comp-mirw4pxz__"]{
   aspect-ratio:3/2 !important;
   height:auto !important;
@@ -2317,21 +2317,21 @@ Photographer</h3></div><!--/$--><!--$--><div id="comp-kbgakxmn_r_comp-mhuw959w" 
   position:absolute !important;
   inset:0 !important;
 }
-.XWKVT7 a{
-  display:block;
-  width:100%;
-  height:100%;
+/* Ensure wow-image custom element (and siblings) are block-displayed */
+.XWKVT7 *{
+  display:block !important;
 }
-.i4P7Vt picture{
-  display:block;
-  width:100%;
-  height:100%;
-}
+/* img is positioned directly against wow-image.qR3Oj6 (its nearest positioned ancestor)
+   — avoids any height:100% resolution through <picture> */
 .i4P7Vt img{
+  position:absolute !important;
+  inset:0 !important;
   width:100% !important;
   height:100% !important;
   object-fit:cover !important;
   object-position:50% 50%;
+  transform:scale(1.12);
+  transform-origin:center center;
 }
 </style>
 
