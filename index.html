@@ -2284,9 +2284,36 @@ Photographer</h3></div><!--/$--><!--$--><div id="comp-kbgakxmn_r_comp-mhuw959w" 
   pointer-events:none;
   will-change:opacity;
 }
-.i4P7Vt{
-  aspect-ratio:1/1 !important;
+
+/* Navbar: transparent over hero, opaque when scrolled — toggled by JS */
+#comp-mjhe8p9j_r_comp-kbgajy18{
+  --bg-overlay-color:transparent;
+}
+
+/* Portfolio grid: force all cards to the same 3:2 aspect ratio */
+[id^="comp-mirw4pxz__"]{
+  aspect-ratio:3/2 !important;
   height:auto !important;
+}
+[id^="comp-mirw4pxz__"] .comp-mirw4pxz-overflow-wrapper{
+  height:100%;
+}
+[id^="comp-mirw4pxz__"] .comp-mirw4pxz-container{
+  grid-template-rows:1fr !important;
+  height:100%;
+}
+.i4P7Vt{
+  height:100% !important;
+  aspect-ratio:unset !important;
+}
+.XWKVT7{
+  height:100%;
+}
+.i4P7Vt picture,
+.i4P7Vt img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 </style>
 
@@ -2295,10 +2322,12 @@ Photographer</h3></div><!--/$--><!--$--><div id="comp-kbgakxmn_r_comp-mhuw959w" 
   var video = document.querySelector('.roark-hero-video');
   var overlay = document.querySelector('.roark-hero-freeze-overlay');
   var bio = document.getElementById('comp-mg4excfk');
+  var hero = document.getElementById('comp-m28o2bbb');
+  var navLayer = document.getElementById('comp-mjhe8p9j_r_comp-kbgajy18');
   var labels = [document.getElementById('comp-mg45f788'), document.getElementById('comp-mi5a50rr')];
   if (!video || !overlay || !bio) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ticking = false;
 
   function clamp01(n){ return Math.min(1, Math.max(0, n)); }
@@ -2306,9 +2335,16 @@ Photographer</h3></div><!--/$--><!--$--><div id="comp-kbgakxmn_r_comp-mhuw959w" 
   function update(){
     ticking = false;
     var winH = window.innerHeight;
+    var heroH = hero ? hero.offsetHeight : winH;
     var bioTop = bio.getBoundingClientRect().top;
-    // p: 0 while the bio panel sits below the viewport (hero fully exposed),
-    // 1 once the bio panel has slid all the way up and fully covers the pinned hero.
+
+    if (navLayer) {
+      navLayer.style.setProperty('--bg-overlay-color',
+        window.scrollY > heroH - 80 ? 'rgb(250,249,246)' : 'transparent');
+    }
+
+    if (reduceMotion) return;
+
     var p = clamp01((winH - bioTop) / winH);
 
     video.style.filter = 'grayscale(' + p + ') brightness(' + (1 + p * 0.5) + ') contrast(' + (1 - p * 0.15) + ')';
