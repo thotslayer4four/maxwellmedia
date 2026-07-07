@@ -2267,6 +2267,7 @@ Photographer</h3></div><!--/$--><!--$--><div id="comp-kbgakxmn_r_comp-mhuw959w" 
   height:100%;
   overflow:hidden;
   z-index:0;
+  background:#0e0d0b; /* dark fallback if video hasn't loaded yet */
 }
 .roark-hero-video{
   position:absolute;
@@ -2290,30 +2291,47 @@ Photographer</h3></div><!--/$--><!--$--><div id="comp-kbgakxmn_r_comp-mhuw959w" 
   --bg-overlay-color:transparent;
 }
 
-/* Portfolio grid: force all cards to the same 3:2 aspect ratio */
+/* Portfolio grid: uniform 3:2 cards — absolute fill avoids Safari height:100% chain bug */
 [id^="comp-mirw4pxz__"]{
   aspect-ratio:3/2 !important;
   height:auto !important;
+  overflow:hidden !important;
+  position:relative !important;
 }
-[id^="comp-mirw4pxz__"] .comp-mirw4pxz-overflow-wrapper{
-  height:100%;
+[id^="comp-mirw4pxz__"] .comp-mirw4pxz-overflow-wrapper,
+[id^="comp-mirw4pxz__"] .comp-mirw4pxz-container{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
 }
 [id^="comp-mirw4pxz__"] .comp-mirw4pxz-container{
   grid-template-rows:1fr !important;
-  height:100%;
 }
 .i4P7Vt{
-  height:100% !important;
+  position:absolute !important;
+  inset:0 !important;
   aspect-ratio:unset !important;
 }
 .XWKVT7{
-  height:100%;
+  position:absolute !important;
+  inset:0 !important;
 }
-.i4P7Vt picture,
-.i4P7Vt img{
+.XWKVT7 a{
+  display:block;
   width:100%;
   height:100%;
-  object-fit:cover;
+}
+.i4P7Vt picture{
+  display:block;
+  width:100%;
+  height:100%;
+}
+.i4P7Vt img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:50% 50%;
 }
 </style>
 
